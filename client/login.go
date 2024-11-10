@@ -10,14 +10,15 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"github.com/fatih/color"
-	"golang.org/x/crypto/ssh/terminal"
 	"io"
 	"net/http"
 	"net/url"
 	"regexp"
 	"strings"
 	"syscall"
+
+	"github.com/fatih/color"
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 // genFtaa generate a random one
@@ -44,7 +45,7 @@ func findHandle(body []byte) (string, error) {
 }
 
 func findCsrf(body []byte) (string, error) {
-	reg := regexp.MustCompile(`csrf='(.+?)'`)
+	reg := regexp.MustCompile(`data-csrf='(.+?)'`)
 	tmp := reg.FindSubmatch(body)
 	if len(tmp) < 2 {
 		return "", errors.New("Cannot find csrf")
